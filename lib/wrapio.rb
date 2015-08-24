@@ -70,7 +70,7 @@ module WrapIO
 	# @return [String] the captured output from STDOUT
 
 	def self.of(input=nil)
-		input = WrapIO.default_input unless input
+		input = WrapIO.default_input.map{|i| i.to_s.dup} unless input
 		Capture.output do
 			Fake.input(input) do
 				yield
