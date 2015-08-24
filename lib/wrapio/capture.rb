@@ -1,14 +1,20 @@
-##
-
 module WrapIO
+
+	##
+	# A small class built to capture the output from STDOUT.
+
 	class Capture
 
 		##
+		# Captures the output of +$stdout+.
+		# Temporarily swaps +$stdout+ with an instance of the +StringIO+ class.
+		# 
+		# @yield the block of code from which to capture output
 
 		def self.output
 			begin
 				$stdout = captor = StringIO.new
-				yield($stdout)
+				yield
 			ensure
 				$stdout = STDOUT
 			end
