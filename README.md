@@ -26,9 +26,8 @@ Or install it yourself as:
 ```ruby
 # wrapio_test.rb
 
-output = WrapIO.of('input') do
-	gets
-	puts 'output'
+output = WrapIO.of do
+	puts "Hello World!"
 end
 
 puts output
@@ -50,8 +49,6 @@ output = WrapIO.of('input') do
 	gets
 	puts 'output'
 end
-
-puts output
 ```
 
 ```
@@ -74,7 +71,7 @@ ____________________________
 # fake_test.rb
 
 WrapIO::Fake.input('Hello!') do
-	input = $stdin.gets
+	input = gets
 end
 puts input
 ```
