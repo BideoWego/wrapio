@@ -1,8 +1,6 @@
-# Wrapio
+# WrapIO
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/wrapio`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Allows the faking of input to STDIN and capturing of output from STDOUT with semantic method names. Great for testing!
 
 ## Installation
 
@@ -22,7 +20,87 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### WrapIO
+#### Captures output from STDOUT
+
+```ruby
+# wrapio_test.rb
+
+output = WrapIO.of('input') do
+	gets
+	puts 'output'
+end
+
+puts output
+```
+
+```
+$ ruby wrapio_test.rb
+
+"Hello World!"
+```
+
+#### Enable debug to see the faked STDIN
+
+```ruby
+# wrapio_test.rb
+
+WrapIO.debug = true
+output = WrapIO.of('input') do
+	gets
+	puts 'output'
+end
+
+puts output
+```
+
+```
+$ ruby wrapio_test.rb
+
+-- WrapIO Capture#output  --
+-- WrapIO Fake#gets 1 --
+input
+________________________
+output
+
+____________________________
+```
+
+### Or use the internal module classes separately
+
+#### WrapIO::Fake
+
+```ruby
+# fake_test.rb
+
+WrapIO::Fake.input('Hello!') do
+	input = $stdin.gets
+end
+puts input
+```
+
+```
+$ ruby fake_test.rb
+
+"Hello!"
+```
+
+#### WrapIO::Capture
+
+```ruby
+# capture_test.rb
+
+output = WrapIO::Capture.output do
+	print "Hi!"
+end
+puts output
+```
+
+```
+$ ruby capture_test.rb
+
+"Hi!"
+```
 
 ## Development
 
